@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="HueNo1" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m3z-yX-VBv">
+                                <rect key="frame" x="143" y="151" width="46" height="30"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="randomColorBtn:" destination="BYZ-38-t0r" eventType="touchUpInside" id="QHD-k7-ls5"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="466.5" y="-124.5"/>
+        </scene>
+        <!--Control Lights View Controller-->
+        <scene sceneID="2ko-eQ-Z5R">
+            <objects>
+                <viewController storyboardIdentifier="ControlLightsViewController" id="0zJ-fO-iz4" customClass="ControlLightsViewController" customModule="HueNo1" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="lgk-qg-EPv"/>
+                        <viewControllerLayoutGuide type="bottom" id="gvo-yZ-3IW"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Ol5-l4-cRk">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hwI-0n-2vg">
+                                <rect key="frame" x="306" y="63" width="51" height="31"/>
+                                <connections>
+                                    <action selector="switchChangeLight1:" destination="0zJ-fO-iz4" eventType="valueChanged" id="CjJ-W5-MwQ"/>
+                                </connections>
+                            </switch>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="toj-Rl-MbV">
+                                <rect key="frame" x="306" y="146" width="51" height="31"/>
+                                <connections>
+                                    <action selector="switchChangeLight2:" destination="0zJ-fO-iz4" eventType="valueChanged" id="t6f-Gx-Vfp"/>
+                                </connections>
+                            </switch>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="T1M-YV-p46">
+                                <rect key="frame" x="306" y="229" width="51" height="31"/>
+                                <connections>
+                                    <action selector="switchChangeLight3:" destination="0zJ-fO-iz4" eventType="valueChanged" id="oFK-Wo-xm7"/>
+                                </connections>
+                            </switch>
+                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="127" minValue="1" maxValue="254" translatesAutoresizingMaskIntoConstraints="NO" id="msW-4Q-crR">
+                                <rect key="frame" x="82" y="64" width="210" height="31"/>
+                                <connections>
+                                    <action selector="brightnessChangeLight1:" destination="0zJ-fO-iz4" eventType="valueChanged" id="lWC-Ap-i54"/>
+                                </connections>
+                            </slider>
+                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="127" minValue="1" maxValue="254" translatesAutoresizingMaskIntoConstraints="NO" id="erm-jZ-D1q">
+                                <rect key="frame" x="82" y="230" width="210" height="31"/>
+                                <connections>
+                                    <action selector="brightnessChangeLight3:" destination="0zJ-fO-iz4" eventType="valueChanged" id="3lv-HS-zWQ"/>
+                                </connections>
+                            </slider>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Light1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4gG-iv-aLs">
+                                <rect key="frame" x="20" y="68" width="47" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Light2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8e2-XN-pIy">
+                                <rect key="frame" x="20" y="151" width="49" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Light3" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1uG-Ey-T6f">
+                                <rect key="frame" x="20" y="234" width="49" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="127" minValue="1" maxValue="254" translatesAutoresizingMaskIntoConstraints="NO" id="n6K-zd-KbP">
+                                <rect key="frame" x="82" y="147" width="210" height="31"/>
+                                <connections>
+                                    <action selector="brightnessChangeLight2:" destination="0zJ-fO-iz4" eventType="valueChanged" id="zwr-E1-ofO"/>
+                                </connections>
+                            </slider>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <outlet property="brightnessLight1" destination="msW-4Q-crR" id="zS5-G2-xqx"/>
+                        <outlet property="brightnessLight2" destination="n6K-zd-KbP" id="DnK-IR-nMt"/>
+                        <outlet property="brightnessLight3" destination="erm-jZ-D1q" id="4PW-vy-4Vq"/>
+                        <outlet property="switchLight1" destination="hwI-0n-2vg" id="jnE-fr-HiF"/>
+                        <outlet property="switchLight2" destination="toj-Rl-MbV" id="3DU-0b-cTG"/>
+                        <outlet property="switchLight3" destination="T1M-YV-p46" id="NXQ-Ts-CZb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PtM-Ss-DDj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="945.5" y="-124.5"/>
+        </scene>
+    </scenes>
+</document>
