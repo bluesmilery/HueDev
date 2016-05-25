@@ -67,7 +67,7 @@ class ControlLightsViewController: UIViewController {
             if ((error == nil)) {
                 print("success")
             } else {
-                print("false")
+                print("failure")
             }
         }
     }
@@ -83,7 +83,7 @@ class ControlLightsViewController: UIViewController {
             if ((error == nil)) {
                 print("success")
             } else {
-                print("false")
+                print("failure")
             }
         }
     }

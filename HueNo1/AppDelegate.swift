@@ -6,10 +6,10 @@
 //  Copyright © 2016年 Gai. All rights reserved.
 //
 
-let UIAppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-
 import UIKit
 import CoreData
+
+let UIAppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,6 +18,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var phHueSDK: PHHueSDK!
     var bridgeSearch: PHBridgeSearching!
+    
+    var mainStoryBoard: UIStoryboard!
+    var viewController: ViewController!
+    var loadingViewController: LoadingViewController!
+    var bridgePushLinkViewController: BridgePushLinkViewController!
+    var controlLightsViewController: ControlLightsViewController!
+    
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
@@ -27,8 +34,115 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         phHueSDK.startUpSDK()
         phHueSDK.enableLogging(true)
         
+        mainStoryBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+        viewController = mainStoryBoard.instantiateViewControllerWithIdentifier("ViewController") as! ViewController
+        self.window?.rootViewController = viewController
+        self.window?.makeKeyAndVisible()
+        
+        // 启动事件监听
+        let notificationManager: PHNotificationManager = PHNotificationManager.defaultManager()
+        notificationManager.registerObject(self, withSelector: #selector(localConnection), forNotification: LOCAL_CONNECTION_NOTIFICATION)
+        notificationManager.registerObject(self, withSelector: #selector(noLocalConnection), forNotification: NO_LOCAL_CONNECTION_NOTIFICATION)
+        notificationManager.registerObject(self, withSelector: #selector(notAuthenticated), forNotification: NO_LOCAL_AUTHENTICATION_NOTIFICATION)
+        
+        startConnect()
+        
         return true
     }
+    
+    
+    // 处理监听事件
+    func localConnection() {
+        if (controlLightsViewController == nil) {
+            self.performSelector(#selector(presentControlLightsViewController), withObject: nil, afterDelay: 1)
+        }
+    }
+    func noLocalConnection() {
+        
+    }
+    func notAuthenticated() {
+//        removeLoadingView()
+        self.performSelector(#selector(doAuthenticated), withObject: nil, afterDelay: 0.5)
+    }
+    
+    // 进行身份验证
+    func doAuthenticated() {
+        phHueSDK.disableLocalConnection()
+        bridgePushLinkViewController = mainStoryBoard.instantiateViewControllerWithIdentifier("BridgePushLinkViewController") as! BridgePushLinkViewController
+        viewController.presentViewController(bridgePushLinkViewController, animated: true, completion: {
+            self.bridgePushLinkViewController.startPushLink()
+        })
+    }
+    
+    // 进行连接
+    func startConnect() {
+        let cache: PHBridgeResourcesCache = PHBridgeResourcesReader.readBridgeResourcesCache()
+        if (cache.bridgeConfiguration != nil && cache.bridgeConfiguration.ipaddress != nil) {
+            self.showLoadingView("Connecting...")
+            phHueSDK.enableLocalConnection()
+        } else {
+            searchBridge()
+        }
+    }
+    
+    // 寻找桥接器
+    func searchBridge() {
+        phHueSDK.disableLocalConnection()
+        
+        showLoadingView("Searching...")
+        
+        bridgeSearch = PHBridgeSearching.init(upnpSearch: true, andPortalSearch: true, andIpAdressSearch: true)
+        bridgeSearch.startSearchWithCompletionHandler { (bridgesFound: [NSObject : AnyObject]!) -> Void in
+            
+            if bridgesFound.count > 0 {
+                
+                // Configure SDK connection
+                let sortedKeys: Array = bridgesFound.keys.sort({ (s1, s2) -> Bool in
+                    return (s1 as! String) < (s2 as! String)
+                })
+                let bridgeId = sortedKeys[0] as! String
+                let ip = bridgesFound[bridgeId] as! String
+                self.showLoadingView("Connecting...")
+                self.phHueSDK.setBridgeToUseWithId(bridgeId, ipAddress: ip)
+                
+                self.performSelector(#selector(self.startConnect), withObject: nil, afterDelay: 1)
+            } else {
+                // 没有发现桥接器，弹出警告
+            }
+        }
+    }
+    
+    // 连接成功
+    func pushLinkSuccess() {
+        viewController.dismissViewControllerAnimated(true, completion: nil)
+        self.performSelector(#selector(startConnect), withObject: nil, afterDelay: 1)
+    }
+    
+    // 呈现控制界面
+    func presentControlLightsViewController() {
+        controlLightsViewController = mainStoryBoard.instantiateViewControllerWithIdentifier("ControlLightsViewController") as! ControlLightsViewController
+        viewController.presentViewController(controlLightsViewController, animated: true, completion: nil)
+    }
+    
+    func showLoadingView(withText: String) {
+        // 先移除旧的
+        removeLoadingView()
+        
+        // 再产生新的
+        loadingViewController = mainStoryBoard.instantiateViewControllerWithIdentifier("LoadingViewController") as! LoadingViewController
+        loadingViewController.view.frame = viewController.view.bounds
+        viewController.view.addSubview(loadingViewController.view)
+        loadingViewController.loadingText.text = withText
+    }
+    
+    func removeLoadingView() {
+        if (loadingViewController != nil) {
+            loadingViewController.view.removeFromSuperview()
+            loadingViewController = nil
+        }
+    }
+    
+    
 
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -39,12 +153,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
         
+        phHueSDK.disableLocalConnection()
+        viewController.dismissViewControllerAnimated(true, completion: nil)
+        controlLightsViewController = nil
     }
 
     func applicationWillEnterForeground(application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
         
-        
+        startConnect()
     }
 
     func applicationDidBecomeActive(application: UIApplication) {
