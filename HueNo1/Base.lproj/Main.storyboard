@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -153,6 +153,9 @@
                                     <action selector="brightnessChangeLight2:" destination="0zJ-fO-iz4" eventType="valueChanged" id="zwr-E1-ofO"/>
                                 </connections>
                             </slider>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dHH-oK-oO6">
+                                <rect key="frame" x="0.0" y="292" width="375" height="375"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -161,6 +164,7 @@
                         <outlet property="brightnessLight1" destination="msW-4Q-crR" id="zS5-G2-xqx"/>
                         <outlet property="brightnessLight2" destination="n6K-zd-KbP" id="DnK-IR-nMt"/>
                         <outlet property="brightnessLight3" destination="erm-jZ-D1q" id="4PW-vy-4Vq"/>
+                        <outlet property="iv" destination="dHH-oK-oO6" id="VWJ-7p-oN3"/>
                         <outlet property="switchLight1" destination="hwI-0n-2vg" id="jnE-fr-HiF"/>
                         <outlet property="switchLight2" destination="toj-Rl-MbV" id="3DU-0b-cTG"/>
                         <outlet property="switchLight3" destination="T1M-YV-p46" id="NXQ-Ts-CZb"/>

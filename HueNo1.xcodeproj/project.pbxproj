@@ -80,7 +80,7 @@
 		26D14E161CE56E5800A83B05 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		26D14E221CE56EF500A83B05 /* HueNo1-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HueNo1-Bridging-Header.h"; sourceTree = "<group>"; };
 		26D14E251CE56FBF00A83B05 /* HueSDK_iOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = HueSDK_iOS.framework; sourceTree = "<group>"; };
-		26D14E271CE5700400A83B05 /* Lumberjack */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Lumberjack; path = "/Users/Gai/Documents/Hue Dev/HueNo1/Lumberjack"; sourceTree = "<absolute>"; };
+		26D14E271CE5700400A83B05 /* Lumberjack */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Lumberjack; path = "/Users/Gai/Documents/Hue_dev/HueNo1/Lumberjack"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
